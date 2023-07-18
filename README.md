@@ -18,3 +18,8 @@ El proyecto backend tiene los siguientes objetivos principales:
 El objetivo de este proyecto es por medio de la ayuda de una API de sismos en tiempo real consumirla y solo mostrar los caracteres esenciales mostrando datos de los sismos en tiempo real; además de darle la oportunidad a los usuarios de poder insertar sus experiencias como: si les afectó el temblor, que daños tubo, en que parte del mundo, ¿ha experimentado temblores antes?,  que sintió en el momento del temblor, que acciones toman al momento del sismo, ¿haz notado alguna diferencia a comparación del ultimo temblor?, etc. De esta manera tener un registro tanto de los sismos como de las experiencias de los usuarios de acuerdo a su ubicación
 
 El nombre del proyecto es **"Seismic Activity Recorder"**
+
+
+### Diagrama de entidad relación
+
+<img src="img/Diagrama.png">
