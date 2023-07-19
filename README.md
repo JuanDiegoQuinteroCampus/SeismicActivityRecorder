@@ -22,4 +22,4 @@ El nombre del proyecto es **"Seismic Activity Recorder"**
 
 ### Diagrama de entidad relación
 
-<img src="img/Diagrama.png">
+<img src="img/DiagramaSismo.png">
