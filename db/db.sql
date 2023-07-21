@@ -1,3 +1,4 @@
+-- Active: 1688557221070@@localhost@3306@seismic_activity_recorder
 CREATE DATABASE Seismic_Activity_Recorder;
 
 USE Seismic_Activity_Recorder;
@@ -5,12 +6,13 @@ USE Seismic_Activity_Recorder;
 CREATE TABLE
     sismo(
         idSismo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        id VARCHAR(20) NOT NULL ,
         fecha DATE NOT NULL,
         hora_local TIME NOT NULL,
-        magnitud VARCHAR(20) NOT NULL,
+        magnitud NUMERIC NOT NULL,
         tipo_mag VARCHAR(20) NOT NULL,
-        profundidad_km INT(20) NOT NULL,
-        intensidad_max VARCHAR(20) NOT NULL,
+        profundidad_km NUMERIC NOT NULL,
+        intensidad_max INTEGER NOT NULL,
         area_epicentro VARCHAR(50) NOT NULL
     );
 
