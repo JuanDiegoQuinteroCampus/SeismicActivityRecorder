@@ -38,4 +38,37 @@ storageSismo.post('/informacion', (req, res)=>{
     res.send("Datos insertados correctamente en la base de datos.");
 });
 
+storageSismo.delete('/informacion/eliminar/:idSismo', (req, res)=>{
+    const idSismo = req.params.idSismo;
+    con.query(
+        `DELETE FROM sismo 
+        WHERE idSismo = ?`,
+        idSismo,
+        
+        (err, result) => {
+            if (err) {
+                console.error('Error al eliminar el dato del sismo', err.message);
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    );
+});
+
+storageSismo.delete('/informacion/delete', (req, res) => {
+    con.query(
+      `DELETE FROM sismo`,
+      (err, result) => {
+        if (err) {
+          console.error('Error al eliminar todos los datos de la tabla de sismos:', err);
+          res.status(500).send('Error al eliminar todos los datos de la tabla de sismos.');
+        } else {
+          console.log('Todos los datos de la tabla de sismos han sido eliminados:', result);
+          res.send('Todos los datos de la tabla de sismos han sido eliminados.');
+        }
+      }
+    );
+  });
+  
 export default storageSismo;
