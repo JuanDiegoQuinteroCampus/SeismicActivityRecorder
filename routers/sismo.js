@@ -38,6 +38,28 @@ storageSismo.post('/informacion', (req, res)=>{
     res.send("Datos insertados correctamente en la base de datos.");
 });
 
+
+storageSismo.put('/update/:idSismo', (req, res) => {
+  const idSismo = req.params.idSismo;
+  const newData = req.body; 
+
+  con.query(
+    'UPDATE sismo SET ? WHERE idSismo = ?',
+    [newData, idSismo],
+    (err, result) => {
+      if (err) {
+        console.error('Error al actualizar el registro:', err);
+        res.status(500).send('Error al actualizar el registro');
+      } else {
+        console.log('Registro actualizado:', result.affectedRows, 'filas afectadas');
+        res.status(200).send('Registro actualizado exitosamente');
+      }
+    }
+  );
+});
+
+
+
 storageSismo.delete('/informacion/eliminar/:idSismo', (req, res)=>{
     const idSismo = req.params.idSismo;
     con.query(
