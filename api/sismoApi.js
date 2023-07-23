@@ -17,7 +17,7 @@ const sismoapi = async()=>{
           area_epicentro: sismo.properties.place
       }
   })
-  console.log(sismosInfo);
+  /* console.log(sismosInfo); */
   return sismosInfo;
 } catch (error) {
   console.error('Error al obtener los datos de la API:', error);
