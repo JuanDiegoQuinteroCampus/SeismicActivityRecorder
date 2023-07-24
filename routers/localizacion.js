@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import { Router } from "express";
+import proxyLocalizacion from "../middleware/proxyLocalizacion.js";
 
 const storageLocalizacion = Router();
 let con = undefined;
@@ -19,7 +20,7 @@ storageLocalizacion.get('/lugar', (req, res)=>{
     )
 });
 
-storageLocalizacion.post('/lugar/sent', (req, res)=>{
+storageLocalizacion.post('/lugar/sent', proxyLocalizacion, (req, res)=>{
     
     const {
         latitud,
@@ -47,7 +48,7 @@ storageLocalizacion.post('/lugar/sent', (req, res)=>{
     });
 });
 
-storageLocalizacion.put('/lugar/update/:idLocalizacion', (req, res) => {
+storageLocalizacion.put('/lugar/update/:idLocalizacion', proxyLocalizacion, (req, res) => {
     const idLocalizacion = req.params.idLocalizacion;
     const newData = req.body; 
   
