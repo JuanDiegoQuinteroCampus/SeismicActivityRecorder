@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import { Router } from "express";
+import proxyUsuario from "../middleware/proxyUsuario.js";
 
 const storageUsuario = Router();
 let con = undefined;
@@ -19,7 +20,7 @@ storageUsuario.get('/info', (req, res)=>{
     )
 });
 
-storageUsuario.post('/sent', (req, res)=>{
+storageUsuario.post('/sent', proxyUsuario,(req, res)=>{
     
     const {
         nombre, apellido, correo, telefono, idLocalizacion
@@ -43,7 +44,7 @@ storageUsuario.post('/sent', (req, res)=>{
     });
 });
 
-storageUsuario.put('/update/:idUsuario', (req, res) => {
+storageUsuario.put('/update/:idUsuario', proxyUsuario, (req, res) => {
     const idUsuario = req.params.idUsuario;
     const newData = req.body; 
   
