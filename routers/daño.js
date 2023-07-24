@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import { Router } from "express";
+import proxyDano from "../middleware/proxyDano.js";
 
 const storageDaño = Router();
 let con = undefined;
@@ -19,7 +20,7 @@ storageDaño.get('/obt', (req, res)=>{
     )
 });
 
-storageDaño.post('/clase/sent', (req, res)=>{
+storageDaño.post('/clase/sent',proxyDano, (req, res)=>{
     
     const {
         idSismo, tipoDaño, descripcion
@@ -43,7 +44,7 @@ storageDaño.post('/clase/sent', (req, res)=>{
     });
 });
 
-storageDaño.put('/clase/update/:idDano', (req, res) => {
+storageDaño.put('/clase/update/:idDano',  proxyDano,(req, res) => {
     const idDaño = req.params.idDano;
     const newData = req.body; 
   
