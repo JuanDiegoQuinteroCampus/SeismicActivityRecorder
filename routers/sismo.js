@@ -1,6 +1,7 @@
 import mysql from "mysql2";
 import { Router } from "express";
 import sismosInfo from '../api/sismoApi.js';
+import proxySismo from "../middleware/proxySismo.js";
 
 const storageSismo = Router();
 
@@ -21,7 +22,7 @@ storageSismo.get('/informacion', (req, res)=>{
     );
 });
 
-storageSismo.post('/informacion', (req, res)=>{
+storageSismo.post('/informacion/sent', proxySismo , (req, res)=>{
     sismosInfo.forEach((sismo) => {
         const sqlQuery = `INSERT INTO sismo (id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -39,7 +40,38 @@ storageSismo.post('/informacion', (req, res)=>{
 });
 
 
-storageSismo.put('/update/:idSismo', (req, res) => {
+storageSismo.post('/informacion/sent/data', proxySismo , (req, res)=>{
+  
+  const{id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro} = req.body;
+
+      const sql = `INSERT INTO sismo (id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      const values = [id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro];
+  
+      con.query(sql, values, (err, result) => {
+        if (err) {
+          console.error("Error al insertar la data:", err);
+          return res.status(500).json({ error: "Error interno del servidor." });
+        }
+    
+        res.status(201).json({ mensaje: "datos de sismo insertada con éxito." });
+      });
+    });
+/* 
+Dato para probar despues validaciones
+{
+    
+    "id": "us7000kfa9",
+    "fecha": "1899-11-30T04:56:16.000Z",
+    "hora_local": "08:58:47",
+    "magnitud": "d",
+    "tipo_mag": "mb",
+    "profundidad_km": "10",
+    "intensidad_max": 333,
+    "area_epicentro": "Colombia"
+  } */
+
+storageSismo.put('/update/:idSismo', proxySismo,(req, res) => {
   const idSismo = req.params.idSismo;
   const newData = req.body; 
 
