@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import { Router } from "express";
+import proxyExperiencia from "../middleware/proxyExperiencia.js";
 
 const storageExperiencia = Router();
 let con = undefined;
@@ -19,7 +20,7 @@ storageExperiencia.get('/info', (req, res)=>{
     )
 });
 
-storageExperiencia.post('/sent', (req, res)=>{
+storageExperiencia.post('/sent', proxyExperiencia,(req, res)=>{
     
     const {
         idUsuario, idSismo, fecha, tex_comentario, idDaño
@@ -43,7 +44,7 @@ storageExperiencia.post('/sent', (req, res)=>{
     });
 });
 
-storageExperiencia.put('/update/:idExperiencia', (req, res) => {
+storageExperiencia.put('/update/:idExperiencia', proxyExperiencia, (req, res) => {
     const idExperiencia = req.params.idExperiencia;
     const newData = req.body; 
   
