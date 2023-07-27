@@ -1,6 +1,7 @@
 import mysql from "mysql2";
 import { Router } from "express";
 import proxyExperiencia from "../middleware/proxyExperiencia.js";
+import { validateToken } from "../middleware/proxyJWT.js";
 
 const storageExperiencia = Router();
 let con = undefined;
@@ -11,7 +12,7 @@ storageExperiencia.use((req, res, next) =>{
     next();
 });
 
-storageExperiencia.get('/info', (req, res)=>{
+storageExperiencia.get('/info',validateToken, (req, res)=>{
     con.query(
         `SELECT * FROM experiencia`,
         (err,data,fil) => {
@@ -20,7 +21,7 @@ storageExperiencia.get('/info', (req, res)=>{
     )
 });
 
-storageExperiencia.post('/sent', proxyExperiencia,(req, res)=>{
+storageExperiencia.post('/sent',validateToken, proxyExperiencia,(req, res)=>{
     
     const {
         idUsuario, idSismo, fecha, tex_comentario, idDaño
@@ -44,7 +45,7 @@ storageExperiencia.post('/sent', proxyExperiencia,(req, res)=>{
     });
 });
 
-storageExperiencia.put('/update/:idExperiencia', proxyExperiencia, (req, res) => {
+storageExperiencia.put('/update/:idExperiencia', validateToken,proxyExperiencia, (req, res) => {
     const idExperiencia = req.params.idExperiencia;
     const newData = req.body; 
   
@@ -64,7 +65,7 @@ storageExperiencia.put('/update/:idExperiencia', proxyExperiencia, (req, res) =>
   });
 
 
-  storageExperiencia.delete('/del/:idExperiencia', (req, res)=>{
+  storageExperiencia.delete('/del/:idExperiencia',validateToken, (req, res)=>{
     const idExperiencia = req.params.idExperiencia;
     con.query(
         `DELETE FROM experiencia WHERE idExperiencia = ?`,
