@@ -1,6 +1,7 @@
 import mysql from "mysql2";
 import { Router } from "express";
 import proxyLocalizacion from "../middleware/proxyLocalizacion.js";
+import { validateToken } from "../middleware/proxyJWT.js";
 
 const storageLocalizacion = Router();
 let con = undefined;
@@ -11,7 +12,7 @@ storageLocalizacion.use((req, res, next) =>{
     next();
 });
 
-storageLocalizacion.get('/lugar', (req, res)=>{
+storageLocalizacion.get('/lugar', validateToken, (req, res)=>{
     con.query(
         `SELECT * FROM localizacion`,
         (err,data,fil) => {
@@ -20,7 +21,7 @@ storageLocalizacion.get('/lugar', (req, res)=>{
     )
 });
 
-storageLocalizacion.post('/lugar/sent', proxyLocalizacion, (req, res)=>{
+storageLocalizacion.post('/lugar/sent', validateToken, proxyLocalizacion, (req, res)=>{
     
     const {
         latitud,
@@ -48,7 +49,7 @@ storageLocalizacion.post('/lugar/sent', proxyLocalizacion, (req, res)=>{
     });
 });
 
-storageLocalizacion.put('/lugar/update/:idLocalizacion', proxyLocalizacion, (req, res) => {
+storageLocalizacion.put('/lugar/update/:idLocalizacion',validateToken,  proxyLocalizacion, (req, res) => {
     const idLocalizacion = req.params.idLocalizacion;
     const newData = req.body; 
   
@@ -68,7 +69,7 @@ storageLocalizacion.put('/lugar/update/:idLocalizacion', proxyLocalizacion, (req
   });
 
 
-storageLocalizacion.delete('/lugar/del/:idLocalizacion', (req, res)=>{
+storageLocalizacion.delete('/lugar/del/:idLocalizacion',validateToken,  (req, res)=>{
     const idLocalizacion = req.params.idLocalizacion;
     con.query(
         `DELETE FROM localizacion WHERE idLocalizacion = ?`,
