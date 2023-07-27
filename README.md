@@ -24,11 +24,45 @@ El nombre del proyecto es **"Seismic Activity Recorder"**
 
 <img src="img/DiagramaSismo.png">
 
+### DataBase Seismic_Activity_Recorder
+
+Se debe crear la base de datos Seismic_Activity_Recorder con sus respectivas relaciones de acuerdo al diagrama entidad relación hecho anteriormente, la cual contiene las siguientes tablas:
+
+- Sismo : Contiene todos los datos de los sismos (características)
+- Usuario: Usuarios afectados o que quieran contar acerca del momento que vivieron la experiencia
+- Daño : Contiene la descripcion y explicación de daños que hubo por el sismo
+- Experiencia : Contiene la experiencia ingresada por los usuarios acerca del sismo
+- Localización : Muestra el lugar donde los usuarios estubieron mientras el sismo estaba ocurriendo
+
+### Consumo Api de Sismos 
+
+Se consumió una api de sismo para obtener los datos a insertar en la tabla sismo de la base de datos Seismic_Activity_Recorder, pero de la api solo se tomaron los siguientes datos de la tabla que son: idSismo
+
+- *fecha*
+- *hora_local*
+- *magnitud*
+- *tipo_mag*
+- *profundidad_km*
+- *intensidad_max*
+- *area_epicentro*
+
+La api seleccionada para el consumo e inserción de datos es: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson
+
+###### Nueva columna, tabla sismo
+
+Se insertó una nueva columna en la tabla sismo de la base de datos para poder insertar mejor el id del sismo por el motivo de que es tipo de dato varchar, y se le agregó la otra columna para utilizar un idSismo aparte y tenerlo con primary key para poder hacer las relaciones
+
 ### Instalación de dependencias por defecto
 
 Utiliza este comando en la terminal para poder instalar las dependencias que tiene por defecto
 
 `npm i`
+
+#### Instalación completa y rapida
+
+Si quieres saber como instalar todas las dependencias necesarias este es el comando, ten en cuenta que ya las instalaste al momento que pusiste  npm i
+
+`npm i -E -D nodemon express dotenv mysql2 nanoid cookie-parser class-transformer reflect-metadata class-validator typescript jose` 
 
 ### Instalaciones dependencias ()
 
@@ -82,8 +116,7 @@ Instalar jose
 
 `npm i -E -D jose`
 
-#### Instalación completa y rapida
-`npm i -E -D nodemon express dotenv mysql2 nanoid cookie-parser class-transformer reflect-metadata class-validator typescript jose` 
+
 
 
 
@@ -125,84 +158,42 @@ Para poder hacer que el proyecto funcione debe ejecutar el siguiente comando en 
 
 - `npm run dev`
 
-Ese comando sirve para levantar el servidor y poder trabajar en el correctamente
-
-Continuo a esto deberá ejecutar el siguiente comando si en dado cado la carpeta controller no este disponible y poder correr la configuración tsconfig:
+Ese comando sirve para levantar el servidor y poder trabajar en el correctamente, una vez puesto este comando, crea otra terminal sin cerrar la otra para ejecutar el siguiente comando si en dado caso la carpeta controller no este disponible y poder correr la configuración tsconfig:
 
 - `npm run tsc`
 
-### DataBase Seismic_Activity_Recorder
-
-Se creó la base de datos Seismic_Activity_Recorder con sus respectivas relaciones de acuerdo al diagrama entidad relación hecho anteriormente, la cual contiene las siguientes tablas:
-
-- Sismo : Contiene todos los datos de los sismos (características)
-- Usuario: Usuarios afectados o que quieran contar acerca del momento que vivieron la experiencia
-- Daño : Contiene la descripcion y explicación de daños que hubo por el sismo
-- Experiencia : Contiene la experiencia ingresada por los usuarios acerca del sismo
-- Localización : Muestra el lugar donde los usuarios estubieron mientras el sismo estaba ocurriendo
-
-### Consumo Api de Sismos 
-
-Se consumió una api de sismo para obtener los datos a insertar en la tabla sismo de la base de datos Seismic_Activity_Recorder, pero de la api solo se tomaron los siguientes datos de la tabla que son: idSismo
-
-- *fecha*
-- *hora_local*
-- *magnitud*
-- *tipo_mag*
-- *profundidad_km*
-- *intensidad_max*
-- *area_epicentro*
-
-La api seleccionada para el consumo e inserción de datos es: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson
-
-###### Nueva columna, tabla sismo
-
-Se insertó una nueva columna en la tabla sismo de la base de datos para poder insertar mejor el id del sismo por el motivo de que es tipo de dato varchar, y se le agregó la otra columna para utilizar un idSismo aparte y tenerlo con primary key para poder hacer las relaciones
 
 
-
-### ¡¡Importante!! 
-
+#### ¡¡Importante!!
 ##### La herramienta a utilizar para verificar el funcionamiento es Thunder Client
 
 
 
-## DataBase
+DataBase
+Abre el la carpeta "db", luego abre el archivo db.sql:
 
+Crea la base de datos dandole click en el comentario (Execute) que aparece encima de ( 
+CREATE DATABASE Seismic_Activity_Recorder
+ ).
 
-Abre el la carpeta "db", luego abre el archivo db.sql, despues de esto crea la base de datos dale click en ejecutar al siguiente comando:
+Luego de aver creado la base de datos debes usarla para trabajar en ella, para esto dale click a ejecutar el comentario (Execute) que aparece encima de ( 
+USE Seismic_Activity_Recorder;
+ ).
 
-```CREATE DATABASE Seismic_Activity_Recorder;```
-Luego de aver creado la base de datos debes trabajar en ella usandola, para esto dale click a ejecutar el siguiente comando:
+Despues de usar la tabla debes seleccionar unicamente las 5 tablas para darle click en (Run debug SQL) que aparece en la parte superior.
+Debes generar el token teniendo la extension de ThunderCLient y teniendo en cuenta los siguientes pasos:
 
-```USE Seismic_Activity_Recorder;```
-
-Una vez realizando los pasos anteriores, selecciona específicamente para crear e insertar todas las cinco tablas, dale a correr para que se ejecute todos los comandos y puedas trabajar en el proyecto; tambien otra opcion diferente a esta es crear las tablas una por una (Ojo, no seleccione todo del archivo db.sql, solo las tablas para su creación)
-
-Dirígete a Router: Sismo, (aquí mismo en el archivo README.md) en la parte de post sigue las instrucciones para poder ingresar los datos de la tabla sismo, recuerda también antes generar el token para su visualización
-
-
-
-Una vez seguido los pasos vuelve a la carpeta db al archivo db.sql, selecciona los datos a insertar y dale click a ejecutar
-
-
-
-
-
-### Generar un token para pode visualizar, enviar, actualizar y borrar data: Sismo(Importante)
-
-Para generar un token es importante realizar los siguientes pasos: 
-
-1. Utiliza la siguiente url en metodo get: http://localhost:5022/token/1. esto te generará un token (copia)
-2. Debes ponerlo en HTTP headers, agregas: Authorization y al frente pones el token generado (pegas)
-
+Utiliza la siguiente url en metodo get: http://localhost:5022/token/1. esto te generará un token (copia)
+Debes ponerlo en HTTP headers, agregas: Authorization y al frente pones el token generado (pegas)
 
 <img src="img/token.png">
 
-
-
 Si en dado caso se acaba el tiempo de ese token debes volver a generar otro haciendo todo el proceso para generarlo y ya nuevamente podrás volver a manipular los datos
-("El token generado tiene un tiempo muy extenso para la prueba de este proyecto")
+("El token generado tiene un tiempo muy extenso para la prueba de este proyecto").
+
+Ojo para poder manipular la data debes tener presente el token generado en todo momento, puedes dejar quieto el header con la Authorization y su token en cada momento, solo cambia los metodos (get, post, put, delete) y los links, y si es necesario para los metodos post o put manipula el body sin quitar la Authorization con su token
+
+En la parte de post sigue las instrucciones para poder ingresar los datos de la tabla sismo, luego de realizar el post redirigete aca para seguir con las instrucciones. Una vez seguido los pasos vuelve a la carpeta db al archivo db.sql, selecciona los datos a insertar y dale click a ejecutar
 
 ### Router: Sismo
 
