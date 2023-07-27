@@ -180,10 +180,10 @@ Luego de aver creado la base de datos debes usarla para trabajar en ella, para e
 USE Seismic_Activity_Recorder;
  ).
 
-Despues de usar la tabla debes seleccionar unicamente las 5 tablas para darle click en (Run debug SQL) que aparece en la parte superior.
+Después de usar la base de datos debes seleccionar únicamente las 5 tablas para darle click en (Run debug SQL) que aparece en la parte superior. (**Recuerda no insertar data todavía**) **IMPORTANTE**
 Debes generar el token teniendo la extension de ThunderCLient y teniendo en cuenta los siguientes pasos:
 
-Utiliza la siguiente url en metodo get: http://localhost:5022/token/1. esto te generará un token (copia)
+Utiliza la siguiente url en metodo get: http://localhost:5022/token/1 esto te generará un token (copia)
 Debes ponerlo en HTTP headers, agregas: Authorization y al frente pones el token generado (pegas)
 
 <img src="img/token.png">
@@ -193,7 +193,9 @@ Si en dado caso se acaba el tiempo de ese token debes volver a generar otro haci
 
 Ojo para poder manipular la data debes tener presente el token generado en todo momento, puedes dejar quieto el header con la Authorization y su token en cada momento, solo cambia los metodos (get, post, put, delete) y los links, y si es necesario para los metodos post o put manipula el body sin quitar la Authorization con su token
 
-En la parte de post sigue las instrucciones para poder ingresar los datos de la tabla sismo, luego de realizar el post redirigete aca para seguir con las instrucciones. Una vez seguido los pasos vuelve a la carpeta db al archivo db.sql, selecciona los datos a insertar y dale click a ejecutar
+En la parte de post sigue las instrucciones para poder ingresar los datos de la tabla sismo, luego de realizar el post redirigete aca para seguir con las instrucciones.
+
+- Una vez seguido los pasos vuelve a la carpeta db al archivo db.sql, selecciona los datos a insertar y dale click a ejecutar
 
 ### Router: Sismo
 
@@ -378,7 +380,7 @@ Se realizó un post para asi poder enviar datos de localización del usuario, in
 
 Se realizó un put para poder actualizar datos de la localizacion del usuario, poniendo el id en la url del dato que se quiere actualizar para asi luego enviarlo con los datos actualizados, ingresa el siguiente enlace, luego de esto ingresa la data para que arroje: Registro actualizado exitosamente
 
-- http://localhost:5022/localizacion/lugar/update/idLocalizacion
+- http://localhost:5022/localizacion/lugar/update/9
 
 ```
 {
@@ -437,11 +439,15 @@ Se realizó un post para asi poder enviar datos de los daños, para esto ingresa
 
 - http://localhost:5022/dano/clase/sent
 
+    ```
     {
     "idSismo": 2,
     "tipoDaño": "Destructivo",
     "descripcion": "Se destruyo la gran cantidad de casas y algunas quedaron con grietas"
     }
+    ```
+    
+    
 
 
 #### Put
@@ -450,9 +456,13 @@ Se realizó un put para poder actualizar datos los daños, poniendo el id en la 
 
 - http://localhost:5022/dano/clase/update/5
 
+    ```
     {"idSismo": 3,
     "tipoDaño": "Derrumbe",
     "descripcion": "Derrumbes"}
+    ```
+    
+    
 #### Delete
 
 Se le agregó un delete para de esta forma eliminar los datos específicos que quiere con poner solo el id en la url, para esto ingresa la url y selecciona el metodo y podras notar como ese registro es eliminado
@@ -533,16 +543,16 @@ Se realizó un post para asi poder enviar datos de los usuarios, ingresa la url,
 
 Se realizó un put para poder actualizar  los datos de usuarios, poniendo el id en la url del dato que se quiere actualizar para asi luego enviarlo con los datos actualizados. Para la utilización de este ingresa la url y elije el metodo, luego ingresa los datos para actualizar (fecha_registro no es necesaria ponerla, por tal motivo que se genera automaticamente)
 
-- http://localhost:5022/user/update/:idUsuario
+- http://localhost:5022/user/update/3
 
 ```
-{
-    "nombre": "Juan",
-    "apellido": "Argüello",
-    "correo": "juan@Argüello.com",
-    "telefono": 34565754,
-    "idLocalizacion": 1
-  }
+    {
+        "nombre": "Juan",
+        "apellido": "Argüello",
+        "correo": "juan@Argüello.com",
+        "telefono": 34565754,
+        "idLocalizacion": 1
+      }
 ```
 
 #### Delete
@@ -609,31 +619,39 @@ Se realizó un post para asi poder enviar las experiencias de los usuarios, ingr
 
 - http://localhost:5022/experiencia/sent
 
-    {"idUsuario": 3,
-    "idSismo": 3,
-    "fecha": "2023-07-01T05:00:00.000Z",
-    "tex_comentario": "UNa experiencia tragica y desgaradora",
-    "idDaño": 3}
+    ```
+    {
+        "idUsuario": 3,
+        "idSismo": 3,
+        "fecha": "2023-07-01T05:00:00.000Z",
+      "tex_comentario": "UNa experiencia tragica y desgaradora",
+      "idDaño": 3
+  }
+  ```
+  
+  
   
   #### Put
 
 Se realizó un put para poder actualizar las experiencias de los usuarios, poniendo el id en la url del dato que se quiere actualizar para asi luego enviarlo con los datos actualizados, para comprobarlo ingresa el link y selecciona el metodo put, ingresa los datos para actualizarlo
 
-- http://localhost:5022/experiencia/update/:idExperiencia
+- http://localhost:5022/experiencia/update/9
 
 ```
-{"idUsuario": 5,
-"idSismo": 2,
-"fecha": "2000-07-01T05:00:00.000Z",
-"tex_comentario": "UNo quiero volver a vivir esa experiencia",
-"idDaño": 3}
+{
+    "idUsuario": 5,
+    "idSismo": 2,
+    "fecha": "2000-07-01T05:00:00.000Z",
+    "tex_comentario": "UNo quiero volver a vivir esa experiencia",
+    "idDaño": 3
+}
 ```
 
 #### Delete
 
 Se le agregó un delete para de esta forma eliminar los datos específicos que quiere con poner solo el id en la url, para comprobar o dicho ingresa la url, elije el metodo a trabajar y pon el id para eliminar
 
-- http://localhost:5022/experiencia/del/:idExperiencia
+- http://localhost:5022/experiencia/del/5
 
 ##### DTO Experiencia
 
