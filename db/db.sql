@@ -40,7 +40,7 @@ CREATE TABLE
         nombre VARCHAR(40) NOT NULL,
         apellido VARCHAR(40) NOT NULL,
         correo VARCHAR(20) NOT NULL,
-        fech_registro DATE DEFAULT CURRENT_DATE,
+        fech_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         telefono INT(15) NOT NULL,
         idLocalizacion INT NOT NULL,
         Foreign Key (idLocalizacion) REFERENCES localizacion(idLocalizacion)
@@ -122,7 +122,6 @@ VALUES
   (6, 6, '2023-07-25', 'Comunidad afectada necesita apoyo', 6);
 
 
------Dato de localizacion enviada por archivo localizacion
 
 INSERT INTO localizacion (latitud, longitud, ciudad)
 VALUES
