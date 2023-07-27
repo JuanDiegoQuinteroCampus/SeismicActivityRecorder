@@ -6,6 +6,8 @@ import storageLocalizacion from './routers/localizacion.js';
 import storageDaño from './routers/daño.js';
 import storageUsuario from './routers/usuario.js';
 import storageExperiencia from './routers/experiencia.js';
+import appJWT from "./routers/JWT.js";
+
 
 
 dotenv.config();
@@ -17,6 +19,7 @@ appExpress.use("/localizacion", storageLocalizacion)
 appExpress.use("/dano", storageDaño)
 appExpress.use("/user", storageUsuario)
 appExpress.use("/experiencia", storageExperiencia)
+appExpress.use('/token', appJWT);
 
 const config = JSON.parse(process.env.MY_CONFIG);
 appExpress.listen(config, ()=>{console.log(`http://${config.hostname}:${config.port}`);});

@@ -42,18 +42,6 @@ export class sismo {
       };
     },
   })
-  @Transform(
-    ({ value }) => {
-      const date = new Date(value);
-      if (isNaN(date.getTime())) {
-        throw new Error(
-          'Formato de fecha inválido. Debe ser en formato "YYYY-MM-DD".'
-        );
-      }
-      return date.toISOString().slice(0, 10);
-    },
-    { toClassOnly: true }
-  )
   fecha: string;
 
   @Expose({ name: "hora_local" })

@@ -2,6 +2,7 @@ import mysql from "mysql2";
 import { Router } from "express";
 import sismosInfo from '../api/sismoApi.js';
 import proxySismo from "../middleware/proxySismo.js";
+import { validateToken } from "../middleware/proxyJWT.js";
 
 const storageSismo = Router();
 
@@ -13,7 +14,7 @@ storageSismo.use((req, res, next) =>{
     next();
 });
 
-storageSismo.get('/informacion', (req, res)=>{
+storageSismo.get('/informacion', validateToken, (req, res)=>{
     con.query(
         `SELECT * FROM sismo `,
         (err, data, fil) => {
@@ -22,7 +23,7 @@ storageSismo.get('/informacion', (req, res)=>{
     );
 });
 
-storageSismo.post('/informacion/sent', proxySismo , (req, res)=>{
+storageSismo.post('/informacion/sent' ,validateToken, (req, res)=>{
     sismosInfo.forEach((sismo) => {
         const sqlQuery = `INSERT INTO sismo (id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -40,7 +41,7 @@ storageSismo.post('/informacion/sent', proxySismo , (req, res)=>{
 });
 
 
-storageSismo.post('/informacion/sent/data', proxySismo , (req, res)=>{
+storageSismo.post('/informacion/sent/data',validateToken, proxySismo , (req, res)=>{
   
   const{id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro} = req.body;
 
