@@ -17,15 +17,11 @@ CREATE TABLE
     );
 
 CREATE TABLE
-    usuario(
-        idUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        nombre VARCHAR(40) NOT NULL,
-        apellido VARCHAR(40) NOT NULL,
-        correo VARCHAR(20) NOT NULL,
-        fech_registro DATE DEFAULT CURRENT_DATE,
-        telefono INT(15) NOT NULL,
-        idLocalizacion INT NOT NULL,
-        Foreign Key (idLocalizacion) REFERENCES localizacion(idLocalizacion)
+    localizacion(
+        idLocalizacion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        latitud DECIMAL(9, 6),
+        longitud DECIMAL(9, 6),
+        ciudad VARCHAR(70) NOT NULL
     );
 
 CREATE TABLE
@@ -37,6 +33,20 @@ CREATE TABLE
         Foreign Key (idSismo) REFERENCES sismo(idSismo)
         
     );
+
+CREATE TABLE
+    usuario(
+        idUsuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR(40) NOT NULL,
+        apellido VARCHAR(40) NOT NULL,
+        correo VARCHAR(20) NOT NULL,
+        fech_registro DATE DEFAULT CURRENT_DATE,
+        telefono INT(15) NOT NULL,
+        idLocalizacion INT NOT NULL,
+        Foreign Key (idLocalizacion) REFERENCES localizacion(idLocalizacion)
+    );
+
+
 CREATE TABLE
     experiencia(
         idExperiencia INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -50,20 +60,13 @@ CREATE TABLE
         Foreign Key (idSismo) REFERENCES sismo(idSismo)
 
     );
-CREATE TABLE
-    localizacion(
-        idLocalizacion INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        latitud DECIMAL(9, 6),
-        longitud DECIMAL(9, 6),
-        ciudad VARCHAR(70) NOT NULL
-    );
-    
 
-DROP TABLE localizacion;
-DROP TABLE experiencia;
-DROP TABLE daño;
+    
+/* DROP TABLE experiencia;
 DROP TABLE usuario;
-DROP TABLE sismo;
+DROP TABLE daño;
+DROP TABLE localizacion;
+DROP TABLE sismo; */
 
 
 ---------Inserte Info----
