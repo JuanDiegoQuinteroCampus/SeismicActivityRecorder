@@ -111,7 +111,7 @@ En MY_CONNECT :
         "target":"es6",
         "module":"ES6",
         "moduleResolution":"node",
-        "outDir":"./dtocontroller",
+        "outDir":"./controller",
         "esModuleInterop":true,
         "experimentalDecorators":true,
         "emitDecoratorMetadata": true
@@ -623,6 +623,7 @@ Se realizó un post para asi poder enviar las experiencias de los usuarios, ingr
     "fecha": "2023-07-01T05:00:00.000Z",
     "tex_comentario": "UNa experiencia tragica y desgaradora",
     "idDaño": 3}
+  
   #### Put
 
 Se realizó un put para poder actualizar las experiencias de los usuarios, poniendo el id en la url del dato que se quiere actualizar para asi luego enviarlo con los datos actualizados, para comprobarlo ingresa el link y selecciona el metodo put, ingresa los datos para actualizarlo
