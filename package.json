@@ -17,7 +17,7 @@
     "cookie-parser": "1.4.6",
     "dotenv": "16.3.1",
     "express": "4.19.2",
-    "jose": "4.14.4",
+    "jose": "4.15.5",
     "mysql2": "3.9.8",
     "nanoid": "4.0.2",
     "nodemon": "3.0.1",
