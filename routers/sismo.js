@@ -14,13 +14,17 @@ storageSismo.use((req, res, next) =>{
     next();
 });
 
-storageSismo.get('/informacion', validateToken, (req, res)=>{
-    con.query(
-        `SELECT * FROM sismo `,
-        (err, data, fil) => {
-            res.send(JSON.stringify(data));
-        }
-    );
+storageSismo.get('/informacion/:id?', validateToken, (req, res) => {
+  const { id } = req.params; 
+
+  const query = id ? `SELECT * FROM sismo WHERE idSismo = ?` : `SELECT * FROM sismo`;
+
+  con.query(query, id ? [id] : [], (err, data) => {
+      if (err) {
+          return res.status(500).send({ error: 'Error al consultar la base de datos' });
+      }
+      res.send(JSON.stringify(data));
+  });
 });
 
 storageSismo.post('/informacion/sent' ,validateToken, (req, res)=>{
