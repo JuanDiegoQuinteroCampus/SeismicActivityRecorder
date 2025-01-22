@@ -6,7 +6,7 @@ import { validateToken } from "../middleware/proxyJWT.js";
 
 const storageSismo = Router();
 
-let con = undefined;
+let con;
 
 storageSismo.use((req, res, next) =>{
     let myConfig = JSON.parse(process.env.MY_CONNECT);
