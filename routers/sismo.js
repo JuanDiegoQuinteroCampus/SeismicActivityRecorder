@@ -25,9 +25,11 @@ storageSismo.get('/informacion', validateToken, (req, res)=>{
 
 storageSismo.post('/informacion/sent' ,validateToken, (req, res)=>{
     sismosInfo.forEach((sismo) => {
+      const formattedDate = formatDateToYMD(sismo.fecha);
         const sqlQuery = `INSERT INTO sismo (id, fecha, hora_local, magnitud, tipo_mag, profundidad_km, intensidad_max, area_epicentro) 
                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [sismo.idSismo, sismo.fecha, sismo.hora_local, sismo.magnitud, sismo.tipo_mag, sismo.profundidad_km, sismo.intensidad_max, sismo.area_epicentro];
+        const values = [sismo.idSismo, formattedDate, sismo.hora_local, sismo.magnitud, sismo.tipo_mag, sismo.profundidad_km, sismo.intensidad_max, sismo.area_epicentro];
+    console.log(values);
     
         con.query(sqlQuery, values, (error, result) => {
           if (error) {
@@ -125,5 +127,14 @@ storageSismo.delete('/informacion/delete', (req, res) => {
       }
     );
   });
+
+  function formatDateToYMD(dateString) {
+    dateString = dateString.replace(/\//g, '-');
+    const [day, month, year] = dateString.split('-').map(Number);
+    const date = new Date(year, month - 1, day); 
+
+    const formattedDate = date.toISOString().split('T')[0];
+    return formattedDate;
+}
   
 export default storageSismo;
